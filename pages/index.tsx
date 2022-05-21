@@ -10,9 +10,7 @@ const Home: NextPage = () => {
         <title>Twitter Clone</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
-      <h1>Twitter Clone</h1>
-
+      
       <main>
         {/* Sidebar */}
         <Sidebar/>
