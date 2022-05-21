@@ -7,13 +7,14 @@ import Widgets from '../components/Widgets'
 
 const Home: NextPage = () => {
   return (
-    <div>
+    // overflow:hidden becoz we just scroll container not entire page
+    <div className='mx-auto max-h-screen overflow-hidden lg:max-w-6xl'>
       <Head>
         <title>Twitter Clone</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main>
+      <main className='grid grid-cols-9'>
         {/* Sidebar */}
         <Sidebar/>
 
