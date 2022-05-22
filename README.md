@@ -31,6 +31,8 @@ yarn add next-sanity @portabletext/react @sanity/image-url
 
 - **typings.d.ts** file which defines type definition for typescript
 
+- Used **React-hot-toast** - creates toast - [https://react-hot-toast.com/](https://react-hot-toast.com/) (**yarn add react-hot-toast**)
+
 ### Important project links
 - http://localhost:3000/
 - http://localhost:3333/vision --> fetch here using below code
@@ -81,4 +83,5 @@ sanity start  //starts sanity studio
 - [https://nextjs.org/docs/basic-features/data-fetching/get-server-side-props](https://nextjs.org/docs/basic-features/data-fetching/get-server-side-props)
 - [https://www.typescriptlang.org/docs/handbook/declaration-files/templates/module-d-ts.html](https://www.typescriptlang.org/docs/handbook/declaration-files/templates/module-d-ts.html)
 - [https://www.npmjs.com/package/react-timeago](https://www.npmjs.com/package/react-timeago)
+- [https://react-hot-toast.com/](https://react-hot-toast.com/) 
 

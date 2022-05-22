@@ -6,6 +6,7 @@ import Feed from '../components/Feed'
 import Widgets from '../components/Widgets'
 import { fetchTweets } from '../sanity/utils/fetchTweets'
 import { Tweet } from '../typings'
+import { Toaster } from 'react-hot-toast'
 
 interface Props {
   tweets: Tweet[]
@@ -20,6 +21,8 @@ const Home = ({tweets}: Props) => {
         <title>Twitter Clone</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      {/* so toaster will be available throughout the app */}
+      <Toaster/>
 
       <main className='grid grid-cols-9'>
         {/* Sidebar */}
