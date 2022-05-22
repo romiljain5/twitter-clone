@@ -18,7 +18,7 @@ const Widgets = () => {
 
       <TwitterTimelineEmbed
         sourceType="profile"
-        screenName="JavaScriptDaily"
+        screenName="JavaScriptDaily" //JavaScriptDaily
         options={{ height: 1000 }}
       />
     </div>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Comment, Tweet } from '../typings'
+import { Comment, CommentBody, Tweet } from '../typings'
 import TimeAgo from 'react-timeago'
 import {
   ChatAlt2Icon,
@@ -8,6 +8,8 @@ import {
   UploadIcon,
 } from '@heroicons/react/outline'
 import { fetchComments } from '../sanity/utils/fetchComments'
+import { useSession } from 'next-auth/react'
+import toast from 'react-hot-toast'
 
 interface Props {
   tweet: Tweet
@@ -15,6 +17,12 @@ interface Props {
 
 function Tweet({ tweet }: Props) {
   const [comments, setComments] = useState<Comment[]>([])
+  // for comment box
+  const [commentBoxVisible, setCommentBoxVisible] = useState<boolean>(false)
+  const [input, setInput] = useState<string>('')
+  
+  // for getting info about session if user is loged in or not
+  const {data: session} = useSession()
 
   const refreshComments = async () => {
     const comments: Comment[] = await fetchComments(tweet._id)
@@ -25,8 +33,36 @@ function Tweet({ tweet }: Props) {
     refreshComments()
   }, [])
 
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) =>{
+    e.preventDefault()
+
+    const commentToast = toast.loading('Posting Comment...')
+
+    // Comment logic
+    const comment: CommentBody = {
+      comment: input,
+      tweetId: tweet._id,
+      username: session?.user?.name || 'Unknown User',
+      profileImg: session?.user?.image || 'https://links.papareact.com/gll',
+    }
+
+    const result = await fetch(`/api/addComments`, {
+      body: JSON.stringify(comment),
+      method: 'POST',
+    })
+
+    console.log('WOOHOO we made it', result)
+    toast.success('Comment Posted!', {
+      id: commentToast,
+    })
+
+    setInput('')
+    setCommentBoxVisible(false)
+    refreshComments()
+  }
+
   return (
-    <div className="flex cursor-pointer flex-col space-x-3 border-y border-gray-100 p-5 hover:border-gray-200 hover:bg-slate-50">
+    <div key={tweet._id} className="flex cursor-pointer flex-col space-x-3 border-y border-gray-100 p-5 hover:border-gray-200 hover:bg-slate-50">
       <div className="flex space-x-3">
         <img
           className="h-12 w-12 rounded-full object-cover"
@@ -58,7 +94,10 @@ function Tweet({ tweet }: Props) {
           )}
 
           <div className="mt-5 flex justify-between">
-            <div className="group flex cursor-pointer items-center space-x-3 text-gray-400">
+            <div
+              onClick={() => session && setCommentBoxVisible(!commentBoxVisible)}
+              className="group flex cursor-pointer items-center space-x-3 text-gray-400"
+            >
               <div className="rounded-full p-2 transition-transform duration-150 ease-out group-hover:bg-blue-100 group-hover:text-blue-400">
                 <ChatAlt2Icon className="h-5 w-5" />
               </div>
@@ -84,15 +123,30 @@ function Tweet({ tweet }: Props) {
           </div>
 
           {/* Comment box logic */}
+          {commentBoxVisible && (
+            <form onSubmit={handleSubmit}  className="mt-3 flex space-x-3">
+              <input
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                className="flex-1 rounded-lg bg-gray-100 p-2 outline-none"
+                type="text"
+                placeholder="Write a comment..."
+              />
+              <button disabled={!input} type='submit' className="text-twitter disabled:text-gray-200">
+                Post
+              </button>
+            </form>
+          )}
+
           {comments?.length > 0 && (
-            <div className='my-2 mt-5 max-h-44 space-y-5 overflow-y-scroll border-t border-gray-100 p-5'>
+            <div className="my-2 mt-5 max-h-44 space-y-5 overflow-y-scroll border-t border-gray-100 p-5">
               {comments.map((comment) => (
                 <div key={comment._id} className="relative flex space-x-2">
-                  <hr className='absolute left-8 top-14 h-8 border-x border-gray-400/40 z-0'/>
+                  <hr className="absolute left-8 top-14 z-0 h-8 border-x border-gray-400/40" />
                   <img
                     src={comment.profileImg}
                     alt=""
-                    className="mt-2 h-12 w-12 rounded-full object-cover z-10"
+                    className="z-10 mt-2 h-12 w-12 rounded-full object-cover"
                   />
                   <div>
                     <div className="flex items-center space-x-1">
@@ -105,7 +159,7 @@ function Tweet({ tweet }: Props) {
                         date={comment._createdAt}
                       />
                     </div>
-                  <p>{comment.comment}</p>
+                    <p>{comment.comment}</p>
                   </div>
                 </div>
               ))}

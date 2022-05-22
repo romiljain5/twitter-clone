@@ -4,6 +4,9 @@
 - The content loading on our twitter app will be through SSR
 - Now you can login using twitter only then you will be able to make tweet
 
+### Project Video
+[![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/0oU0h_zJWFw/0.jpg)](https://www.youtube.com/watch?v=0oU0h_zJWFw)
+
 ### About Sanity
 - How to query sanity platform using GROQ (query language similar to graphQL)
 - Will use sanity as it is a content platform, use Sanity studio to create our structured content
@@ -35,8 +38,11 @@ yarn add next-sanity @portabletext/react @sanity/image-url
 - If you get error like node version is not compatible run - **yarn config set ignore-engines true**
     - Then run **yarn add next-auth**
     - **How NextAuth works** - It makes sessions for signing and signout for a user, In our app we have used Twitter client id and secret key for authentication of user/ signin of user through twitter
+
 - ApiEndPoint from sanity - [https://www.sanity.io/docs/http-mutations](https://www.sanity.io/docs/http-mutations) for mutations (From mutations we have added the functionality of adding tweets)
     - In mutation we post our tweet in sanity backend and then fetch and show it
+
+- In tailwind CSS to hide scroll bar use tailwind-scrollbar-hide (`yarn add tailwind-scrollbar-hide`) → [https://www.npmjs.com/package/tailwind-scrollbar-hide](https://www.npmjs.com/package/tailwind-scrollbar-hide)
 
 ### Important project links
 - http://localhost:3000/
@@ -71,6 +77,16 @@ TWITTER_CLIENT_SECRET=secret_key             //from twitter developer account an
 ```
 - http://localhost:3000/api/getTweets - go to this API to get tweets
 
+### To update feed just change username to yours
+- In Widgets.tsx file 
+```
+      <TwitterTimelineEmbed
+        sourceType="profile"
+        screenName="romiljain" //change username here
+        options={{ height: 1000 }}
+      />
+```
+
 ### Important Commands
 ```
 npm install   //installs Node modules
@@ -97,3 +113,5 @@ sanity start  //starts sanity studio make account on it first
 - [https://www.npmjs.com/package/react-timeago](https://www.npmjs.com/package/react-timeago)
 - [https://react-hot-toast.com/](https://react-hot-toast.com/) 
 - [https://next-auth.js.org/](https://next-auth.js.org/)
+- [https://www.sanity.io/docs/http-mutations](https://www.sanity.io/docs/http-mutations)
+- [https://www.npmjs.com/package/tailwind-scrollbar-hide](https://www.npmjs.com/package/tailwind-scrollbar-hide)
