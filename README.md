@@ -2,6 +2,7 @@
 
 - Stack used - Next.js, sanity CMS, Typescript, SSR (Server side rendering), Tailwind CSS, NextAuth, GROQ language, React Twitter Embed, next-sanity and Deploy on vercel
 - The content loading on our twitter app will be through SSR
+- Now you can login using twitter only then you will be able to make tweet
 
 ### About Sanity
 - How to query sanity platform using GROQ (query language similar to graphQL)
@@ -15,12 +16,11 @@
 - When you launch studio you can see that sanity provides functionality of providing comments with reference to posts while creating them
 - You can see your tweets, fetched from API (getTweets.ts) which fetches from sanity studio using groq
 
-
+### Other stacks used
 - **Also used next-sanity -** https://github.com/sanity-io/next-sanity
 ```
 yarn add next-sanity @portabletext/react @sanity/image-url
 ```
-
 - Used **React twitter embed** for having RHS panel Feed, We just put username and it gets its feed to panel - https://github.com/saurabhnemade/react-twitter-embed
 
 - **react-timeago** npm library - shows how long ago tweet was made it updates time without reloading and takes time from our api - [https://www.npmjs.com/package/react-timeago](https://www.npmjs.com/package/react-timeago) (**yarn add react-timeago**)
@@ -32,6 +32,9 @@ yarn add next-sanity @portabletext/react @sanity/image-url
 - **typings.d.ts** file which defines type definition for typescript
 
 - Used **React-hot-toast** - creates toast - [https://react-hot-toast.com/](https://react-hot-toast.com/) (**yarn add react-hot-toast**)
+- If you get error like node version is not compatible run - **yarn config set ignore-engines true**
+    - Then run **yarn add next-auth**
+    - **How NextAuth works** - It makes sessions for signing and signout for a user, In our app we have used Twitter client id and secret key for authentication of user/ signin of user through twitter
 
 ### Important project links
 - http://localhost:3000/
@@ -51,11 +54,18 @@ Make .env.local file in root folder
     - Name - Twitter-clone
     - permission - editor - save
     - It will show API token only once so save it
+- Save below things in .env.local file
 ```
 NEXT_PUBLIC_SANITY_DATASET=production
 NEXT_PUBLIC_SANITY_PROJECT_ID=projectid      //project id from sanity
 SANITY_API_TOKEN=token
 NEXT_PUBLIC_BASE_URL=http://localhost:3000/  //later replace when hosting
+
+NEXTAUTH_URL=http://localhost:3000/          //change while Deploying
+NEXTAUTH_SECRET=anypassword
+
+TWITTER_CLIENT_ID=id
+TWITTER_CLIENT_SECRET=secret_key             //from twitter developer account and make development app
 ```
 - http://localhost:3000/api/getTweets - go to this API to get tweets
 
@@ -65,7 +75,7 @@ npm install   //installs Node modules
 yarn dev      //runs project
 
 cd sanity
-sanity start  //starts sanity studio 
+sanity start  //starts sanity studio make account on it first
 ```
 
 ### To use HeroIcons just import package - check icons here [https://heroicons.com/](https://heroicons.com/) - Search for any icon - remove dash b/w them and add Icon at last
@@ -84,4 +94,4 @@ sanity start  //starts sanity studio
 - [https://www.typescriptlang.org/docs/handbook/declaration-files/templates/module-d-ts.html](https://www.typescriptlang.org/docs/handbook/declaration-files/templates/module-d-ts.html)
 - [https://www.npmjs.com/package/react-timeago](https://www.npmjs.com/package/react-timeago)
 - [https://react-hot-toast.com/](https://react-hot-toast.com/) 
-
+- [https://next-auth.js.org/](https://next-auth.js.org/)
