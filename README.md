@@ -39,7 +39,7 @@ yarn add next-sanity @portabletext/react @sanity/image-url
         _id,
         ...
         } | order(_createdAt desc)
-    ```
+     ```
 - http://localhost:3333/desk
 
 ### How to run project
