@@ -35,6 +35,8 @@ yarn add next-sanity @portabletext/react @sanity/image-url
 - If you get error like node version is not compatible run - **yarn config set ignore-engines true**
     - Then run **yarn add next-auth**
     - **How NextAuth works** - It makes sessions for signing and signout for a user, In our app we have used Twitter client id and secret key for authentication of user/ signin of user through twitter
+- ApiEndPoint from sanity - [https://www.sanity.io/docs/http-mutations](https://www.sanity.io/docs/http-mutations) for mutations (From mutations we have added the functionality of adding tweets)
+    - In mutation we post our tweet in sanity backend and then fetch and show it
 
 ### Important project links
 - http://localhost:3000/
